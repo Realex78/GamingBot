@@ -120,6 +120,6 @@ bot.on("message", function(message) {
       message.channel.send("Comando inválido");
     };
   });
-});
+
 
 bot.login(TOKEN);

@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Realex78/GamingBot/issues"
   },
-  "homepage": "https://github.com/Realex78/GamingBot#readme"
+  "homepage": "https://github.com/Realex78/GamingBot#readme",
+  "dependencies": {
+    "discord.js": "^11.3.2"
+  }
 }

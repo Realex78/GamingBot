@@ -8,13 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com/Realex78/GamingBot"
+    "url": "git+https://github.com/Realex78/GamingBot.git"
   },
   "author": "Renato Peña / Realex78#2193",
   "license": "SEE LICENSE IN LICENSE",
-  "dependencies": {
-    "discord.js": "^11.2.1",
-    "opusscript": "0.0.6",
-    "ytdl-core": "^0.20.1"
+  "bugs": {
+    "url": "https://github.com/Realex78/GamingBot/issues"
   },
-},
+  "homepage": "https://github.com/Realex78/GamingBot#readme"
+}

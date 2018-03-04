@@ -64,7 +64,7 @@ bot.on("message", function(message) {
     "Ayúdame ",
   ];
 
-  switch (arguments[0].toLowerCase()) {
+  switch (args[0].toLowerCase()) {
     case "comandos":
       message.channel.sendEmbed(HelpEmbed);
       break;

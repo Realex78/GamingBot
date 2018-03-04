@@ -119,7 +119,7 @@ bot.on("message", function(message) {
     default:
       message.channel.send("Comando inválido");
     };
-  };
+  });
 });
 
 bot.login(TOKEN);

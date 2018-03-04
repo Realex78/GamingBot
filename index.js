@@ -48,6 +48,8 @@ bot.on("message", function(message) {
 
   if(!message.content.startsWith(PREFIX)) return;
 
+  var args = message.content.substring(PREFIX.length).split(" ");
+
   var HelpEmbed = new Discord.RichEmbed()
     .addField("/comandos", "Muestra esta lista", true)
     .addField("/info", "Muestra información sobre GamingBot", true)

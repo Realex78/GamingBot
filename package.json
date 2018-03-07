@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Realex78/GamingBot#readme",
   "dependencies": {
     "discord.js": "^11.3.2",
+    "opusscript": "0.0.6",
     "ytdl-core": "^0.20.2"
   }
 }

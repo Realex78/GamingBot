@@ -9,9 +9,10 @@ var bot = new Discord.Client();
 
 var servers = {};
 
+var version = "1.3.4"
 bot.on("ready", function() {
   console.log("¡Listo!")
-  console.log("SocialBot corriendo en la versión 1.3.3")
+  console.log("SocialBot corriendo en la versión " + version)
 });
 
 function play(connection, message) {
@@ -74,7 +75,7 @@ bot.on("message", function(message) {
       message.channel.sendEmbed(HelpEmbed);
       break;
     case "info":
-      message.channel.send("GamingBot v.1.3.3 | Hecho por Renato Peña / Realex78#2193");
+      message.channel.send("GamingBot v." + version + " | Hecho por Renato Peña / @Realex78#2193");
       break;
     case "escuchar":
       if (!args[1]) {

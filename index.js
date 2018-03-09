@@ -54,7 +54,7 @@ bot.on("message", function(message) {
   var HelpEmbed = new Discord.RichEmbed()
     .addField("/comandos", "Muestra esta lista", true)
     .addField("/info", "Muestra información sobre GamingBot", true)
-    .addField("/escuchar", "Pone en la fila la canción de YouTube especificada", true)
+    .addField("/escuchar <String: Link de YouTube>", "Pone en la fila la canción de YouTube especificada", true)
     .addField("/saltar", "Salta la canción y pasa a la siguiente el la fila", true)
     .addField("/parar", "Para la fila de canciones", true)
     .setColor("#3a96dd")
@@ -65,7 +65,14 @@ bot.on("message", function(message) {
     "Hmmm... intenta ",
     "Creo que sería más fácil ",
     "Ayúdame ",
+    "Oops. Intenta ",
   ];
+
+  var SuccessMessage = [
+    "¡Yay! ",
+    "¡Hurra! ",
+    "¡Súper! "
+  ]
 
   switch (args[0].toLowerCase()) {
     case "comandos":
@@ -93,34 +100,41 @@ bot.on("message", function(message) {
       server.queue.push(args[1]);
       if (!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection) {
         play(connection, message);
+        message.channel.send(SuccessMessage[Math.floor(Math.random() * SuccessMessage.length)] + "La canción fue agregada a la cola.")
       });
       break;
     case "saltar":
       var server = servers[message.guild.id];
       if (server.dispatcher) server.dispatcher.end();
+      message.channel.send(SuccessMessage[Math.floor(Math.random() * SuccessMessage.length)] + "La canción fue saltada.")
       break;
     case "parar":
       var server = servers[message.guild.id];
       if (message.guild.voiceConnection) message.guild.voiceConnection.disconnect();
+      message.channel.send(SuccessMessage[Math.floor(Math.random() * SuccessMessage.length)] + "La fila fue parada y borrada.")
       break;
-    /*  case "borrar":
-        async function delete() {
+    case "borrar":
+      async function purge() {
           message.delete();
-          if (!message.member.roles.name == "administrador superior") {
-            message.channel.send('Necesitas ser staff para usar este comando');
-            return;
-          }
-          if (isNaN(args[1])) {
-              message.channel.send('Por favor introduce un número');
+          if (!message.member.roles.find("name", "administrador superior")) {
+              message.channel.send('lol no tienes eres staff');
               return;
           }
+
+          if (isNaN(args[1])) {
+              message.channel.send('lol no es un numero');
+              return;
+          }
+
           const fetched = await message.channel.fetchMessages({limit: args[1]});
-          fetched.delete()
-        };
-        delete();
-        break;*/
+          console.log(fetched.size + ' messages found, deleting...');
+          message.channel.bulkDelete(fetched)
+              .catch(error => message.channel.send(`Error: ${error}`));+
+      }
+      purge();
+      break;
     default:
-      message.channel.send("Comando inválido");
+      message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "escribiendo un comando válido. Utiliza /ayuda para verlos.");
     };
   });
 

@@ -130,7 +130,7 @@ bot.on("message", function(message) {
           console.log(fetched.size + ' messages found, deleting...');
           message.channel.bulkDelete(fetched)
               .catch(error => message.channel.send(`Error: ${error}`));+
-      }
+      };
       purge();
       break;
     default:

@@ -119,17 +119,17 @@ bot.on("message", function(message) {
           if (!message.member.roles.find("name", "administrador superior")) {
               message.channel.send('lol no tienes eres staff');
               return;
-          }
+          };
 
           if (isNaN(args[1])) {
               message.channel.send('lol no es un numero');
               return;
-          }
+          };
 
           const fetched = await message.channel.fetchMessages({limit: args[1]});
           console.log(fetched.size + ' messages found, deleting...');
           message.channel.bulkDelete(fetched)
-              .catch(error => message.channel.send(`Error: ${error}`));+
+              .catch(error => message.channel.send(`Error: ${error}`));
       };
       purge();
       break;

@@ -9,7 +9,7 @@ var bot = new Discord.Client();
 
 var servers = {};
 
-var version = "1.3.4"
+var version = "1.3.5"
 bot.on("ready", function() {
   console.log("¡Listo!")
   console.log("SocialBot corriendo en la versión " + version)
@@ -57,6 +57,7 @@ bot.on("message", function(message) {
     .addField("/escuchar <String: Link de YouTube>", "Pone en la fila la canción de YouTube especificada", true)
     .addField("/saltar", "Salta la canción y pasa a la siguiente el la fila", true)
     .addField("/parar", "Para la fila de canciones", true)
+    .addField("/borrar <Number: Número de mensajes a eliminar>", "Elimina los mensajes especificados. **Solo para staff.**", true)
     .setColor("#3a96dd")
     .setDescription("Estos son los comandos actuales:")
     .setTitle("Comandos")
@@ -72,7 +73,13 @@ bot.on("message", function(message) {
     "¡Yay! ",
     "¡Hurra! ",
     "¡Súper! "
-  ]
+  ];
+
+  var DenyMessage = [
+    "Hmmm... no puedes hacer este comando porque ",
+    "Creo que ",
+    "Oops, ",
+  ];
 
   switch (args[0].toLowerCase()) {
     case "comandos":
@@ -104,6 +111,10 @@ bot.on("message", function(message) {
       });
       break;
     case "saltar":
+      if (server == null) {
+        message.channel.send(DenyMessage[Math.floor(Math.random() * DenyMessage.length)] + "no hay nada en la fila.");
+        return;
+      };
       var server = servers[message.guild.id];
       if (server.dispatcher) server.dispatcher.end();
       message.channel.send(SuccessMessage[Math.floor(Math.random() * SuccessMessage.length)] + "La canción fue saltada.")
@@ -116,20 +127,18 @@ bot.on("message", function(message) {
     case "borrar":
       async function purge() {
           message.delete();
-          if (!message.member.roles.find("name", "administrador superior")) {
-              message.channel.send('lol no tienes eres staff');
+          if (!message.member.roles.find("name", "Staff")) {
+              message.channel.send(DenyMessage[Math.floor(Math.random() * DenyMessage.length)] + "no eres staff.");
               return;
           };
 
           if (isNaN(args[1])) {
-              message.channel.send('lol no es un numero');
+              message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "poniendo un número");
               return;
           };
 
           const fetched = await message.channel.fetchMessages({limit: args[1]});
-          console.log(fetched.size + ' messages found, deleting...');
-          message.channel.bulkDelete(fetched)
-              .catch(error => message.channel.send(`Error: ${error}`));
+          message.channel.bulkDelete(fetched);
       };
       purge();
       break;

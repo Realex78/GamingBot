@@ -30,19 +30,19 @@ function play(connection, message) {
 
 bot.on("guildMemberAdd", function(member) {
   var welcome = [
-    "¡Hola " + ${member} + "!",
-    "¿Cómo te va, " + ${member} + "?",
-    "¿Qué hay de nuevo, " + ${member} + "?",
-    "¿Cómo están las cosas, " + ${member} + "?",
-    "¿Cómo está tu día, " + ${member} + "?",
-    "¡Qué bueno verte, " + ${member} + "!",
-    "¡Mucho tiempo sin verte, " + ${member} + "!",
-    "¡Encantado de conocerte, " + ${member} + "!",
-    "¿Cómo has estado, " + ${member} + "?",
+    "¡Hola " + member + "!",
+    "¿Cómo te va, " + member + "?",
+    "¿Qué hay de nuevo, " + member + "?",
+    "¿Cómo están las cosas, " + member + "?",
+    "¿Cómo está tu día, " + member + "?",
+    "¡Qué bueno verte, " + member + "!",
+    "¡Mucho tiempo sin verte, " + member + "!",
+    "¡Encantado de conocerte, " + member + "!",
+    "¿Cómo has estado, " + member + "?",
   ];
   const channel = member.guild.channels.find('name', 'nuevos-miembros');
   if (!channel) return;
-  channel.send(welcome[Math.floor(Math.random() * welcome.length));
+  channel.send(welcome[Math.floor(Math.random() * welcome.length)]);
 });
 
 bot.on("message", function(message) {

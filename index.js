@@ -41,7 +41,7 @@ bot.on("guildMemberAdd", function(member) {
     "¿Cómo has estado, " + member.toString() + "?",
   ];
   console.log("Nuevo miembro");
-  member.guild.channels.find("name", "nuevos-miembros").send(welcome[Math.floor(Math.random() * welcome.length)]);
+  member.guild.channels.find("id", "421828860590424064").send(welcome[Math.floor(Math.random() * welcome.length)]);
 });
 
 bot.on("message", function(message) {

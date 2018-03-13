@@ -1,15 +1,16 @@
 //Cosas de inicialización
 const Discord = require("discord.js");
 const YTDL = require("ytdl-core");
+const weather = require("weather-js");
 
-const TOKEN = process.env.BOT_TOKEN;
+const TOKEN = "NDE5NTQ1MjQwNDcxNjAxMTUy.DXxrkg.854m0HsnFNp0B8ZlaRteKtIFN48";
 const PREFIX = "/"
 
 var bot = new Discord.Client();
 
 var servers = {};
 
-var version = "1.3.5"
+var version = "1.3.6"
 bot.on("ready", function() {
   console.log("¡Listo!")
   console.log("SocialBot corriendo en la versión " + version)
@@ -23,8 +24,12 @@ function play(connection, message) {
   server.queue.shift();
 
   server.dispatcher.on("end", function() {
-    if (server.queue[0]) play(connection, message)
-    else connection.disconnect();
+    if (server.queue[0]) {
+      play(connection, message)
+    } else {
+      connection.disconnect();
+      message.channel.send(SuccessMessage[Math.floor(Math.random() * SuccessMessage.length)] + "La fila fue reproducida completamente. Me he desconectado del canal de voz.")
+    }
   })
 }
 
@@ -84,10 +89,10 @@ bot.on("message", function(message) {
 
   switch (args[0].toLowerCase()) {
     case "comandos":
-      message.channel.sendEmbed(HelpEmbed);
+      message.channel.send(HelpEmbed);
       break;
     case "ayuda":
-      message.channel.sendEmbed(HelpEmbed);
+      message.channel.send(HelpEmbed);
       break;
     case "info":
       message.channel.send("GamingBot v." + version + " | Hecho por Renato Peña / @Realex78#2193");
@@ -123,25 +128,46 @@ bot.on("message", function(message) {
     case "parar":
       var server = servers[message.guild.id];
       if (message.guild.voiceConnection) message.guild.voiceConnection.disconnect();
-      message.channel.send(SuccessMessage[Math.floor(Math.random() * SuccessMessage.length)] + "La fila fue parada y borrada.")
+      message.channel.send(SuccessMessage[Math.floor(Math.random() * SuccessMessage.length)] + "La fila fue parada y borrada. Me he desconectado del canal de voz.")
       break;
     case "borrar":
       async function purge() {
-          message.delete();
-          if (!message.member.roles.find("name", "Staff")) {
-              message.channel.send(DenyMessage[Math.floor(Math.random() * DenyMessage.length)] + "no eres staff.");
-              return;
-          };
+        message.delete();
+        if (!message.member.roles.find("name", "Staff")) {
+            message.channel.send(DenyMessage[Math.floor(Math.random() * DenyMessage.length)] + "no eres staff.");
+            return;
+        };
 
-          if (isNaN(args[1])) {
-              message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "poniendo un número");
-              return;
-          };
+        if (isNaN(args[1])) {
+            message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "poniendo un número");
+            return;
+        };
 
-          const fetched = await message.channel.fetchMessages({limit: args[1]});
-          message.channel.bulkDelete(fetched);
+        const fetched = await message.channel.fetchMessages({limit: args[1]});
+        message.channel.bulkDelete(fetched);
       };
       purge();
+      break;
+    case "clima":
+      weather.find({search: args.join(" "), degreeType: 'C'}, function(err, result) {
+        if(err) message.channel.send(err);
+
+        var current = result[0].current;
+        var location = result[0].location;
+
+        var embed = new Discord.RichEmbed()
+        .addField("Zona horaria", "UTC" + location.timezone, true)
+        .addField("Medida de temperatura", location.degreetype, true)
+        .addField("Temperatura", current.temperature + "grados", true)
+        .addField("Sensación térmica", current.feelslike + "grados", true)
+        .addField("Viento", current.winddisplay, true)
+        .addField("Humedad", current.humidity + "%", true)
+        .setAuthor("Clima de" + current.observationpoint)
+        .setColor("#3a96dd")
+        .setDescription("**" + current.skytext + "**")
+        .setThumbnail(current.imageUrl)
+        message.channel.send(embed);
+      });
       break;
     default:
       message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "escribiendo un comando válido. Utiliza /ayuda para verlos.");

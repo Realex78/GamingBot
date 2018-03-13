@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 const YTDL = require("ytdl-core");
 const weather = require("weather-js");
 
-const TOKEN = "NDE5NTQ1MjQwNDcxNjAxMTUy.DXxrkg.854m0HsnFNp0B8ZlaRteKtIFN48";
+const TOKEN = proccess.env.BOT_TOKEN;
 const PREFIX = "/"
 
 var bot = new Discord.Client();

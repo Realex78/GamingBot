@@ -14,7 +14,7 @@ var version = "1.3.6 (Beta)"
 bot.on("ready", function() {
   console.log("¡Listo!")
   console.log("SocialBot corriendo en la versión " + version)
-  bot.user.setPresence({ game: { name: 'versión' + version, type: 'PLAYING' }, status: 'idle' })
+  bot.user.setPresence({ game: { name: 'versión ' + version, type: 'PLAYING' }, status: 'idle' })
 });
 
 function play(connection, message) {
@@ -155,7 +155,11 @@ bot.on("message", function(message) {
 
         var current = result[0].current;
         var location = result[0].location;
-
+        
+        if current.skytext == "Partly Sunny" {
+          var CurrentSkytextTranslated = "Parcialmente Soledado"
+        };
+        
         var embed = new Discord.RichEmbed()
         .addField("Zona horaria", "UTC" + location.timezone, true)
         .addField("Medida de temperatura", location.degreetype, true)
@@ -163,7 +167,7 @@ bot.on("message", function(message) {
         .addField("Sensación térmica", current.feelslike + "grados", true)
         .addField("Viento", current.winddisplay, true)
         .addField("Humedad", current.humidity + "%", true)
-        .setAuthor("Clima de" + current.observationpoint)
+        .setAuthor("Clima de " + current.observationpoint)
         .setColor("#3a96dd")
         .setDescription("**" + current.skytext + "**")
         .setThumbnail(current.imageUrl)

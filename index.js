@@ -156,7 +156,7 @@ bot.on("message", function(message) {
         var current = result[0].current;
         var location = result[0].location;
         
-        if current.skytext == "Partly Sunny" {
+        if (current.skytext = "Partly Sunny") {
           var CurrentSkytextTranslated = "Parcialmente Soledado"
         };
         

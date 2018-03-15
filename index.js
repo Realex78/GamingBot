@@ -14,7 +14,7 @@ var version = "1.3.6 (Beta)"
 bot.on("ready", function() {
   console.log("¡Listo!")
   console.log("SocialBot corriendo en la versión " + version)
-  bot.setPresence({ game: { name: 'versión' + version, type: 'PLAYING' }, status: 'idle' })
+  bot.user.setPresence({ game: { name: 'versión' + version, type: 'PLAYING' }, status: 'idle' })
 });
 
 function play(connection, message) {

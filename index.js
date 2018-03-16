@@ -163,7 +163,7 @@ bot.on("message", function(message) {
         //Viento
         if  (current.winddisplay.endsWith("Southeast")) {
           var array = current.winddisplay.split("km/h")
-          var CurrentSkyTextTranslated = array[1] + "Sureste"
+          var CurrentWinddisplayTranslated = array[1] + "Sureste"
         };
         
         var embed = new Discord.RichEmbed()
@@ -171,7 +171,7 @@ bot.on("message", function(message) {
         .addField("Medida de temperatura", location.degreetype + "°", true)
         .addField("Temperatura", current.temperature + " grados", true)
         .addField("Sensación térmica", current.feelslike + " grados", true)
-        .addField("Viento", current.winddisplay, true)
+        .addField("Viento", CurrentWinddisplayTranslated, true)
         .addField("Humedad", current.humidity + "%", true)
         .setAuthor("Clima de " + current.observationpoint)
         .setColor("#3a96dd")

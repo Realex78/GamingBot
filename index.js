@@ -169,7 +169,7 @@ bot.on("message", function(message) {
         .addField("Humedad", current.humidity + "%", true)
         .setAuthor("Clima de " + current.observationpoint)
         .setColor("#3a96dd")
-        .setDescription("**" + current.skytext + "**")
+        .setDescription("**" + CurrentSkytextTranslated + "**")
         .setThumbnail(current.imageUrl)
         message.channel.send(embed);
       });

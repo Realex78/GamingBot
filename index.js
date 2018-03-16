@@ -163,7 +163,7 @@ bot.on("message", function(message) {
         //Viento
         if  (current.winddisplay.endsWith("Southeast")) {
           var array = current.winddisplay.split("km/h")
-          var CurrentWinddisplayTranslated = array[1] + "Sureste"
+          var CurrentWinddisplayTranslated = array[0] +  " Sureste"
         };
         
         var embed = new Discord.RichEmbed()

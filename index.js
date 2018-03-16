@@ -150,6 +150,11 @@ bot.on("message", function(message) {
       purge();
       break;
     case "clima":
+      if (!args[1]) {
+        message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "incluyendo el nombre de una ciudad.");
+        return
+      }
+      
       weather.find({search: args.join(" "), degreeType: 'C'}, function(err, result) {
         if(err) message.channel.send(err);
 
@@ -162,6 +167,11 @@ bot.on("message", function(message) {
         };
 
         //Viento
+        if  (current.winddisplay.endsWith("East")) {
+          var array = current.winddisplay.split("km/h")
+          var CurrentWinddisplayTranslated = array[0] +  " Este"
+        };
+
         if  (current.winddisplay.endsWith("Southeast")) {
           var array = current.winddisplay.split("km/h")
           var CurrentWinddisplayTranslated = array[0] +  " Sureste"

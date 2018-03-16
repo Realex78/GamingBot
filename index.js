@@ -160,11 +160,16 @@ bot.on("message", function(message) {
           var CurrentSkytextTranslated = "Parcialmente Soledado"
         };
         
+        if  (current.winddisplay.endsWith("Southeast")) {
+          var array = current.winddisplay.split("km/h")
+          var CurrentSkyTextTranslated = array[1] + "Sureste"
+        };
+        
         var embed = new Discord.RichEmbed()
-        .addField("Zona horaria", "UTC" + location.timezone, true)
-        .addField("Medida de temperatura", location.degreetype, true)
-        .addField("Temperatura", current.temperature + "grados", true)
-        .addField("Sensación térmica", current.feelslike + "grados", true)
+        .addField("Zona horaria", "UTC " + location.timezone, true)
+        .addField("Medida de temperatura", location.degreetype + "°", true)
+        .addField("Temperatura", current.temperature + " grados", true)
+        .addField("Sensación térmica", current.feelslike + " grados", true)
         .addField("Viento", current.winddisplay, true)
         .addField("Humedad", current.humidity + "%", true)
         .setAuthor("Clima de " + current.observationpoint)

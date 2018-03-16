@@ -10,10 +10,11 @@ var bot = new Discord.Client();
 
 var servers = {};
 
-var version = "1.3.6"
+var version = "1.3.6 (Beta)"
 bot.on("ready", function() {
   console.log("¡Listo!")
   console.log("SocialBot corriendo en la versión " + version)
+  bot.user.setPresence({ game: { name: 'versión ' + version, type: 'PLAYING' }, status: 'idle' })
 });
 
 function play(connection, message) {
@@ -154,17 +155,27 @@ bot.on("message", function(message) {
 
         var current = result[0].current;
         var location = result[0].location;
-
+        
+        if (current.skytext = "Partly Sunny") {
+          var CurrentSkytextTranslated = "Parcialmente Soledado"
+        };
+        
+        //Viento
+        if  (current.winddisplay.endsWith("Southeast")) {
+          var array = current.winddisplay.split("km/h")
+          var CurrentWinddisplayTranslated = array[0] +  " Sureste"
+        };
+        
         var embed = new Discord.RichEmbed()
-        .addField("Zona horaria", "UTC" + location.timezone, true)
-        .addField("Medida de temperatura", location.degreetype, true)
-        .addField("Temperatura", current.temperature + "grados", true)
-        .addField("Sensación térmica", current.feelslike + "grados", true)
-        .addField("Viento", current.winddisplay, true)
+        .addField("Zona horaria", "UTC " + location.timezone, true)
+        .addField("Medida de temperatura", location.degreetype + "°", true)
+        .addField("Temperatura", current.temperature + " grados", true)
+        .addField("Sensación térmica", current.feelslike + " grados", true)
+        .addField("Viento", CurrentWinddisplayTranslated, true)
         .addField("Humedad", current.humidity + "%", true)
-        .setAuthor("Clima de" + current.observationpoint)
+        .setAuthor("Clima de " + current.observationpoint)
         .setColor("#3a96dd")
-        .setDescription("**" + current.skytext + "**")
+        .setDescription("**(" + current.skytext + ")" + CurrentSkytextTranslated + "**")
         .setThumbnail(current.imageUrl)
         message.channel.send(embed);
       });

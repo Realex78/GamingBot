@@ -155,27 +155,28 @@ bot.on("message", function(message) {
 
         var current = result[0].current;
         var location = result[0].location;
-        
+
+        //Cielo
         if (current.skytext = "Partly Sunny") {
           var CurrentSkytextTranslated = "Parcialmente Soledado"
         };
-        
+
         //Viento
         if  (current.winddisplay.endsWith("Southeast")) {
           var array = current.winddisplay.split("km/h")
           var CurrentWinddisplayTranslated = array[0] +  " Sureste"
         };
-        
+
         var embed = new Discord.RichEmbed()
         .addField("Zona horaria", "UTC " + location.timezone, true)
         .addField("Medida de temperatura", location.degreetype + "°", true)
         .addField("Temperatura", current.temperature + " grados", true)
         .addField("Sensación térmica", current.feelslike + " grados", true)
-        .addField("Viento", CurrentWinddisplayTranslated, true)
+        .addField("Viento", "(" + current.winddisplay + ") " + CurrentWinddisplayTranslated, true)
         .addField("Humedad", current.humidity + "%", true)
         .setAuthor("Clima de " + current.observationpoint)
         .setColor("#3a96dd")
-        .setDescription("**(" + current.skytext + ")" + CurrentSkytextTranslated + "**")
+        .setDescription("**(" + current.skytext + ") " + CurrentSkytextTranslated + "**")
         .setThumbnail(current.imageUrl)
         message.channel.send(embed);
       });

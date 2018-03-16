@@ -160,6 +160,7 @@ bot.on("message", function(message) {
           var CurrentSkytextTranslated = "Parcialmente Soledado"
         };
         
+        //Viento
         if  (current.winddisplay.endsWith("Southeast")) {
           var array = current.winddisplay.split("km/h")
           var CurrentSkyTextTranslated = array[1] + "Sureste"
@@ -174,7 +175,7 @@ bot.on("message", function(message) {
         .addField("Humedad", current.humidity + "%", true)
         .setAuthor("Clima de " + current.observationpoint)
         .setColor("#3a96dd")
-        .setDescription("**" + CurrentSkytextTranslated + "**")
+        .setDescription("**(" + current.skytext + ")" + CurrentSkytextTranslated + "**")
         .setThumbnail(current.imageUrl)
         message.channel.send(embed);
       });

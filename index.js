@@ -1,7 +1,6 @@
 //Cosas de inicialización
 const Discord = require("discord.js");
 const YTDL = require("ytdl-core");
-const request = require('request');
 
 const TOKEN = process.env.BOT_TOKEN;
 const PREFIX = "/"

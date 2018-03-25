@@ -166,18 +166,7 @@ bot.on("message", function(message) {
           message.channel.send('body:', body);
         }
       });
-
-      var embed = new Discord.RichEmbed()
-      .addField("Zona horaria", "UTC " + location.timezone, true)
-      .addField("Medida de temperatura", location.degreetype + "°", true)
-      .addField("Temperatura", current.temperature + " grados", true)
-      .addField("Sensación térmica", current.feelslike + " grados", true)
-      .addField("Viento", "(" + current.winddisplay + ") " + CurrentWinddisplayTranslated, true)
-      .addField("Humedad", current.humidity + "%", true)
-      .setAuthor("Clima de " + current.observationpoint)
-      .setColor("#3a96dd")
-      .setDescription("**(" + current.skytext + ") " + CurrentSkytextTranslated + "**")
-      .setThumbnail(current.imageUrl)
+      
       break;
     default:
       message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "escribiendo un comando válido. Utiliza /ayuda para verlos.");

@@ -166,9 +166,9 @@ bot.on("message", function(message) {
         .setDescription("**" + WeatherInfo.weather + "**")
         .setAuthor("Clima de " + WeatherInfo.name)
         .setColor("#2d72fe")
-        .addField('Temperatura', WeatherInfo.main.temp + " Grados", true)
-        .addField('Viento', WeatherInfo.wind.speed * 3.6 + "km/h", true)
-        .addField('Humedad', WeatherInfo.main.humidity + "%", true)
+        .addField('Temperatura', WeatherInfo.main + " Grados", true)
+        .addField('Viento', WeatherInfo.wind + "km/h", true)
+        .addField('Humedad', WeatherInfo.main + "%", true)
 
         message.channel.send(embed);
       });

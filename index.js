@@ -37,8 +37,11 @@ function hook(channel, title, message, color, avatar) {
     if (!channel) return console.log('Canal no especificado');
     if (!title) return console.log('Título no especificado');
     if (!message) return console.log('Mensaje no especificado');
-    if (!color) color = '#2d72fe';
+    if (!color) color = '2d72fe';
     if (!avatar) avatar = 'https://cdn.discordapp.com/app-icons/419545240471601152/a5501cc879ab25ce023db09191b3dd03.png'
+
+    color = color.replace(/\s/g, '');
+    avatar = avatar.replace(/\s/g, '');
 
     channel.fetchWebhooks()
         .then(webhook => {
@@ -51,7 +54,7 @@ function hook(channel, title, message, color, avatar) {
                             "username": title,
                             "avatarURL": avatar,
                             "embeds": [{
-                                "color": color,
+                                "color": parseInt(`0x${color}`),
                                 "description": message
                             }]
                         })
@@ -61,7 +64,7 @@ function hook(channel, title, message, color, avatar) {
                 "username": title,
                 "avatarURL": avatar,
                 "embeds": [{
-                    "color": color,
+                    "color": parseInt(`0x${color}`),
                     "description": message
                 }]
               })

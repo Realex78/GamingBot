@@ -194,7 +194,7 @@ bot.on("message", function(message) {
           return;
       };
 
-      if (mesage.content.toLowerCase() === PREFIX + 'hook') {
+      if (message.content.toLowerCase() === PREFIX + 'hook') {
           return message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "utilizando /comandos para ver el uso correcto.")
       };
 

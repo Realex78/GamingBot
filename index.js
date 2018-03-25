@@ -32,6 +32,43 @@ function play(connection, message) {
       message.channel.send(SuccessMessage[Math.floor(Math.random() * SuccessMessage.length)] + "La fila fue reproducida completamente. Me he desconectado del canal de voz.")
     }
   })
+};
+
+function hook(channel, title, message, color, avatar) {
+    if (!channel) return console.log('Canal no especificado');
+    if (!title) return console.log('Título no especificado');
+    if (!message) return console.log('Mensaje no especificado');
+    if (!color) color = '#2d72fe';
+    if (!avatar) avatar = 'https://cdn.discordapp.com/app-icons/419545240471601152/a5501cc879ab25ce023db09191b3dd03.png'
+
+    channel.fetchWebhooks()
+        .then(webhook => {
+            let foundHook = webhook.find('name', 'GamingBot');
+
+            if (!foundHook) {
+                channel.createWebhook('Webhook', 'https://cdn.discordapp.com/app-icons/419545240471601152/a5501cc879ab25ce023db09191b3dd03.png')
+                    .then(webhook => {
+                        webhook.send('', {
+                            "username": title,
+                            "avatarURL": avatar,
+                            "embeds": [{
+                                "color": color,
+                                "description": message
+                            }]
+                        })
+                    })
+            } else {
+              foundHook.send('', {
+                "username": title,
+                "avatarURL": avatar,
+                "embeds": [{
+                    "color": color,
+                    "description": message
+                }]
+              })
+            }
+        })
+
 }
 
 bot.on("guildMemberAdd", function(member) {
@@ -65,6 +102,7 @@ bot.on("message", function(message) {
     .addField("/saltar", "Salta la canción y pasa a la siguiente el la fila", true)
     .addField("/parar", "Para la fila de canciones", true)
     .addField("/borrar <Number: Número de mensajes a eliminar>", "Elimina los mensajes especificados. **Solo para staff.**", true)
+    .addField("/hook <String: Título>, <String: Mensaje>, [Number: Color], [String: Ícono]", "Envía un rich embed mediante un webhook. **Solo para staff.**", true)
     .setColor("#2d72fe")
     .setDescription("Estos son los comandos actuales:")
     .setTitle("Comandos")
@@ -96,7 +134,7 @@ bot.on("message", function(message) {
       message.channel.send(HelpEmbed);
       break;
     case "info":
-      message.channel.send("GamingBot v." + version + " | Hecho por Renato Peña / @Realex78#2193");
+      message.channel.send("GamingBot v." + version + " | Hecho por Realex78#2193");
       break;
     case "escuchar":
       if (!args[1]) {
@@ -149,30 +187,25 @@ bot.on("message", function(message) {
       };
       purge();
       break;
-    case "clima":
+    case "hook":
+      message.delete();
+
+      if (!message.member.roles.find("name", "Staff")) {
+          message.channel.send(DenyMessage[Math.floor(Math.random() * DenyMessage.length)] + "no eres staff.");
+          return;
+      };
+
       if (!args[1]) {
-        message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "incluyendo el nombre de una ciudad.");
-        return
+          return message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "incluyendo un título.")
+      };
+
+      if (!args[2]) {
+          return message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "incluyendo un mensaje.")
       }
 
-      let apiKey = process.env.WEATHER_TOKEN;
-      let city = args[1];
-      let url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&lang=es&appid=" + apiKey;
+      let hookArgs = message.content.slice(prefix.length + 4).split(","); // This slices the first 6 letters (prefix & the word hook) then splits them by 'commas'
 
-      request(url, function (err, response, body) {
-        let WeatherInfo = JSON.parse(body)
-
-        var embed = new Discord.RichEmbed()
-        .setDescription("**" + WeatherInfo.weather + "**")
-        .setAuthor("Clima de " + WeatherInfo.name)
-        .setColor("#2d72fe")
-        .addField('Temperatura', WeatherInfo.main + " Grados", true)
-        .addField('Viento', WeatherInfo.wind + "km/h", true)
-        .addField('Humedad', WeatherInfo.main + "%", true)
-
-        message.channel.send(embed);
-      });
-
+      hook(message.channel, hookArgs[0], hookArgs[1], hookArgs[2], hookArgs[3]); // This is where it actually calls the hook.
       break;
     default:
       message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "escribiendo un comando válido. Utiliza /ayuda para verlos.");

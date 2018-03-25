@@ -1,7 +1,7 @@
 //Cosas de inicialización
 const Discord = require("discord.js");
 const YTDL = require("ytdl-core");
-const weather = require("weather-js");
+const request = require('request');
 
 const TOKEN = process.env.BOT_TOKEN;
 const PREFIX = "/"
@@ -155,41 +155,29 @@ bot.on("message", function(message) {
         return
       }
 
-      weather.find({search: args.join(" "), degreeType: 'C'}, function(err, result) {
-        if(err) message.channel.send(err);
+      let apiKey = process.env.WEATHER_TOKEN;
+      let city = "ciudad de mexico";
+      let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
 
-        var current = result[0].current;
-        var location = result[0].location;
-
-        //Cielo
-        if (current.skytext = "Partly Sunny") {
-          var CurrentSkytextTranslated = "Parcialmente Soledado"
-        };
-
-        //Viento
-        if  (current.winddisplay.endsWith("East")) {
-          var array = current.winddisplay.split("km/h")
-          var CurrentWinddisplayTranslated = array[0] +  "km/h Este"
-        };
-
-        if  (current.winddisplay.endsWith("Southeast")) {
-          var array = current.winddisplay.split("km/h")
-          var CurrentWinddisplayTranslated = array[0] +  "km/h Sureste"
-        };
-
-        var embed = new Discord.RichEmbed()
-        .addField("Zona horaria", "UTC " + location.timezone, true)
-        .addField("Medida de temperatura", location.degreetype + "°", true)
-        .addField("Temperatura", current.temperature + " grados", true)
-        .addField("Sensación térmica", current.feelslike + " grados", true)
-        .addField("Viento", "(" + current.winddisplay + ") " + CurrentWinddisplayTranslated, true)
-        .addField("Humedad", current.humidity + "%", true)
-        .setAuthor("Clima de " + current.observationpoint)
-        .setColor("#3a96dd")
-        .setDescription("**(" + current.skytext + ") " + CurrentSkytextTranslated + "**")
-        .setThumbnail(current.imageUrl)
-        message.channel.send(embed);
+      request(url, function (err, response, body) {
+        if(err){
+          console.log('error:', error);
+        } else {
+          message.channel.send('body:', body);
+        }
       });
+
+      var embed = new Discord.RichEmbed()
+      .addField("Zona horaria", "UTC " + location.timezone, true)
+      .addField("Medida de temperatura", location.degreetype + "°", true)
+      .addField("Temperatura", current.temperature + " grados", true)
+      .addField("Sensación térmica", current.feelslike + " grados", true)
+      .addField("Viento", "(" + current.winddisplay + ") " + CurrentWinddisplayTranslated, true)
+      .addField("Humedad", current.humidity + "%", true)
+      .setAuthor("Clima de " + current.observationpoint)
+      .setColor("#3a96dd")
+      .setDescription("**(" + current.skytext + ") " + CurrentSkytextTranslated + "**")
+      .setThumbnail(current.imageUrl)
       break;
     default:
       message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "escribiendo un comando válido. Utiliza /ayuda para verlos.");

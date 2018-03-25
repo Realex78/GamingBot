@@ -163,7 +163,9 @@ bot.on("message", function(message) {
         if(err){
           console.log('error:', error);
         } else {
-          message.channel.send('body:' +  body);
+          let weather = JSON.parse(body)
+
+          message.channel.send("Está a " + weather.main.temp + " grados en " + weather.name);
         }
       });
 

@@ -163,7 +163,7 @@ bot.on("message", function(message) {
         let WeatherInfo = JSON.parse(body)
 
         var embed = new Discord.RichEmbed()
-        .setDescription("**" + WeatherInfo.weather.description + "**")
+        .setDescription("**" + WeatherInfo.weather + "**")
         .setAuthor("Clima de " + WeatherInfo.name)
         .setColor("#2d72fe")
         .addField('Temperatura', WeatherInfo.main.temp + " Grados", true)

@@ -194,17 +194,13 @@ bot.on("message", function(message) {
           return;
       };
 
-      if (!args[1]) {
-          return message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "incluyendo un título.")
+      if (mesage.content.toLowerCase() === PREFIX + 'hook') {
+          return message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "utilizando /comandos para ver el uso correcto.")
       };
 
-      if (!args[2]) {
-          return message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "incluyendo un mensaje.")
-      }
+      let hookArgs = message.content.slice(PREFIX.length + 4).split(",");
 
-      let hookArgs = message.content.slice(prefix.length + 4).split(","); // This slices the first 6 letters (prefix & the word hook) then splits them by 'commas'
-
-      hook(message.channel, hookArgs[0], hookArgs[1], hookArgs[2], hookArgs[3]); // This is where it actually calls the hook.
+      hook(message.channel, hookArgs[0], hookArgs[1], hookArgs[2], hookArgs[3]);
       break;
     default:
       message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "escribiendo un comando válido. Utiliza /ayuda para verlos.");

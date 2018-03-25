@@ -65,7 +65,7 @@ bot.on("message", function(message) {
     .addField("/saltar", "Salta la canción y pasa a la siguiente el la fila", true)
     .addField("/parar", "Para la fila de canciones", true)
     .addField("/borrar <Number: Número de mensajes a eliminar>", "Elimina los mensajes especificados. **Solo para staff.**", true)
-    .setColor("#3a96dd")
+    .setColor("#2d72fe")
     .setDescription("Estos son los comandos actuales:")
     .setTitle("Comandos")
 
@@ -156,17 +156,21 @@ bot.on("message", function(message) {
       }
 
       let apiKey = process.env.WEATHER_TOKEN;
-      let city = "portland";
-      let url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&appid=" + apiKey;
+      let city = args[1];
+      let url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&lang=es&appid=" + apiKey;
 
       request(url, function (err, response, body) {
-        if(err){
-          console.log('error:', error);
-        } else {
-          let weather = JSON.parse(body)
+        let WeatherInfo = JSON.parse(body)
 
-          message.channel.send("Está a " + weather.main.temp + " grados en " + weather.name);
-        }
+        var embed = new Discord.RichEmbed()
+        .setDescription("**" + WeatherInfo.weather.description + "**")
+        .setAuthor("Clima de " + WeatherInfo.name)
+        .setColor("#2d72fe")
+        .addField('Temperatura', WeatherInfo.main.temp + " Grados", true)
+        .addField('Viento', WeatherInfo.wind.speed * 3.6 + "km/h", true)
+        .addField('Humedad', WeatherInfo.main.humidity + "%", true)
+
+        message.channel.send(embed);
       });
 
       break;

@@ -157,7 +157,7 @@ bot.on("message", function(message) {
 
       let apiKey = process.env.WEATHER_TOKEN;
       let city = "portland";
-      let url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
+      let url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&appid=" + apiKey;
 
       request(url, function (err, response, body) {
         if(err){

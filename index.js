@@ -184,7 +184,7 @@ bot.on("message", function(message) {
             return;
         };
 
-        const fetched = await message.channel.fetchMessages({limit: args[1] + 1});
+        const fetched = await message.channel.fetchMessages({limit: args[1]});
         message.channel.bulkDelete(fetched);
       };
       purge();

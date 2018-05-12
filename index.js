@@ -172,22 +172,19 @@ bot.on("message", function(message) {
       message.channel.send(SuccessMessage[Math.floor(Math.random() * SuccessMessage.length)] + "La fila fue parada y borrada. Me he desconectado del canal de voz.")
       break;
     case "borrar":
-      async function purge() {
-        message.delete();
-        if (!message.member.roles.find("name", "Staff")) {
-            message.channel.send(DenyMessage[Math.floor(Math.random() * DenyMessage.length)] + "no eres staff.");
-            return;
-        };
-
-        if (isNaN(args[1])) {
-            message.channel.send(ErrorMessage[Math.floor(Math.random() * ErrorMessage.length)] + "poniendo un número");
-            return;
-        };
-
-        const fetched = await message.channel.fetchMessages({limit: args[1]});
-        message.channel.bulkDelete(fetched);
-      };
-      purge();
+      const user = message.mentions.users.first();
+      const amount = !!parseInt(message.content.split(' ')[1]) ? parseInt(message.content.split(' ')[1]) : parseInt(message.content.split(' ')[2])
+      if (!amount) return message.reply('Must specify an amount to delete!');
+      if (!amount && !user) return message.reply('Must specify a user and amount, or just an amount, of messages to purge!');
+      message.channel.fetchMessages({
+        limit: amount,
+      }).then((messages) => {
+        if (user) {
+          const filterBy = user ? user.id : Client.user.id;
+          messages = messages.filter(m => m.author.id === filterBy).array().slice(0, amount);
+        }
+        message.channel.bulkDelete(messages).catch(error => console.log(error.stack));
+      });
       break;
     case "hook":
       message.delete();

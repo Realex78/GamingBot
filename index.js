@@ -9,11 +9,17 @@ var bot = new Discord.Client();
 
 var servers = {};
 
-var version = "1.3.6 (Beta)"
+var version = "1.3.6"
 bot.on("ready", function() {
   console.log("¡Listo!")
   console.log("SocialBot corriendo en la versión " + version)
-  bot.user.setPresence({ game: { name: 'versión ' + version, type: 'PLAYING' }, status: 'idle' })
+  /*
+  online: Estable
+  offline: no c
+  idle: Beta
+  dnd: Alpha
+  */
+  bot.user.setPresence({ game: { name: 'versión ' + version, type: 'PLAYING' }, status: 'online' })
 });
 
 function play(connection, message) {

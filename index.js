@@ -192,7 +192,7 @@ bot.on("message", function(message) {
         message.channel.bulkDelete(messages).catch(error => console.log(error.stack));
       });
       break;
-    case "hook":
+    case "webhook":
       message.delete();
 
       if (!message.member.roles.find("name", "Staff")) {

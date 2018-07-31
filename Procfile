@@ -1,2 +1,2 @@
-worker: npm start
-release: npm run-script poststart
+worker: node index.js
+release: node scripts/poststart.js

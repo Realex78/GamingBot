@@ -38,6 +38,7 @@ client.on('message', async message => {
     message.channel.send(`<@${message.author.id}> esa palabra está bloqueada.`).then((m) => {
       m.delete(5000)
     });
+    return;
   };
 
   if (message.author.bot) return;

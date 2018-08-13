@@ -1,6 +1,6 @@
 {
   "name": "gamingbot",
-  "version": "1.4.0",
+  "version": "1.4.0-alpha.1",
   "description": "Un bot para Discord.",
   "main": "index.js",
   "repository": {

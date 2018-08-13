@@ -171,7 +171,7 @@ client.on('message', async message => {
         if (msg.includes(rolesByLength[i].toLowerCase())) {
           msg = msg.replace(rolesByLength[i].toLowerCase(), '');
           rolesToAdd.push(rolesByLength[i]);
-        }:
+        };
       };
 
       if (rolesToAdd.length === 0) {

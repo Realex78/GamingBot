@@ -8,18 +8,18 @@ Para ganar XP hay acciones disponibles que se pueden hacer:
 - Invitar a alguien: Da 50 XP
 ### Niveles de XP
 Para los niveles de XP hice esta tabla:
-Nivel de XP | XP necesario | XP necesario del nivel anterior
---- | --- | ---
-1 | 10 XP | 10 XP
-2 | 20 XP | 10 XP
-3 | 30 XP | 10 XP
-4 | 50 XP | 20 XP
-5 | 70 XP | 20 XP
-6 | 100 XP | 30 XP
-7 | 150 XP | 50 XP
-8 | 200 XP | 50 XP
-9 | 250 XP | 50 XP
-10 | 300 XP | 50 XP
+| Nivel de XP | XP necesario | XP necesario del nivel anterior |
+| --- | --- | --- |
+| 1 | 10 XP | 10 XP |
+| 2 | 20 XP | 10 XP |
+| 3 | 30 XP | 10 XP |
+| 4 | 50 XP | 20 XP |
+| 5 | 70 XP | 20 XP |
+| 6 | 100 XP | 30 XP |
+| 7 | 150 XP | 50 XP |
+| 8 | 200 XP | 50 XP |
+| 9 | 250 XP | 50 XP |
+| 10 | 300 XP | 50 XP |
 *NOTA: Más niveles se van a ir añadiendo cuando un usuario esté cerca de los últimos niveles*
 ### Recompensas de niveles de XP
 En la siguiente tabla se especifica las recompensas de XP:

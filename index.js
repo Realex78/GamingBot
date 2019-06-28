@@ -2,7 +2,6 @@
   Packages
   ====================
 */
-require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const sm = require('string-similarity');

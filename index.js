@@ -21,7 +21,7 @@ const serverStats = {
   memberCountID: '460896642846031873',
   botCountID: '460896907405819915'
 };
-const roleChannelID = '466307250307334167';
+const roleChannelID = '594292459551457301';
 
 /*
   Message Event
@@ -149,7 +149,7 @@ client.on('message', async message => {
     let parsed = {};
     let rolesToAdd = [];
 
-    roles.length = roles.indexOf('Notificaciones');
+    roles.length = roles.indexOf('3°A');
 
     roles = roles.slice(1);
 
